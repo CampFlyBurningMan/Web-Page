@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camp Fly — Burgin Initiation (Preview)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #0f0f0f;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    .bg-texture-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url("bg-texture.png");
+      background-repeat: repeat;
+      background-size: auto;
+      pointer-events: none;
+    }
+    .dragonfly-bg {
+      position: absolute;
+      top: 7.5rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .dragonfly-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: top center;
+      filter: invert(1);
+      opacity: 0.2;
+    }
+    .content-layer {
+      position: relative;
+      z-index: 1;
+    }
+    .banner {
+      position: relative;
+      width: 100%;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: #0f0f0f;
+      background-image: url("bg-texture.png");
+      background-repeat: repeat;
+      overflow: hidden;
+    }
+    .banner a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 0 1rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .banner-words {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 50vw;
+      max-width: 480px;
+    }
+    .banner-words img {
+      width: 45%;
+      height: auto;
+      object-fit: contain;
+    }
+    .pdf-hint {
+      background: rgba(31,31,31,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+    .pdf-hint strong { color: #fff; }
+    .navbar {
+      background: rgba(15,15,15,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0.75rem 1rem;
+    }
+    .navbar-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .navbar-links { display: flex; gap: 1.5rem; }
+    .navbar-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; }
+    .navbar-links a:hover { color: #fff; text-decoration: underline; }
+    .main { max-width: 720px; margin: 0 auto; padding: 1rem 1.5rem 3rem; }
+    h1 { font-size: 1.75rem; color: #fff; margin-top: 0; }
+    h2 { font-size: 1.25rem; color: #fff; margin: 1.5rem 0 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 0.25rem; }
+    h3 { font-size: 1rem; color: rgba(255,255,255,0.95); margin: 0.75rem 0 0.25rem; }
+    p { margin: 0 0 0.75rem; }
+    a { color: rgba(255,255,255,0.9); }
+    a:hover { color: #fff; }
+    details {
+      margin: 0.5rem 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      background: rgba(31,31,31,0.8);
+      overflow: hidden;
+    }
+    summary {
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      color: rgba(255,255,255,0.95);
+    }
+    summary:hover { background: rgba(255,255,255,0.05); }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: '+ '; color: rgba(255,255,255,0.6); }
+    details[open] summary::before { content: '− '; }
+    details .content { padding: 0 1rem 1rem; color: rgba(255,255,255,0.85); }
+    details .content ul.content-list { list-style-type: disc; padding-left: 1.5rem; margin: 0.5rem 0 0; }
+    details .content ul.content-list li { margin-bottom: 0.75rem; }
+    details details { margin-left: 0.5rem; }
+    .map-wrap { margin-top: 1.5rem; text-align: center; }
+    .map-wrap img { width: 100%; max-width: 100%; height: auto; }
+    .intro { color: rgba(255,255,255,0.85); margin-bottom: 0.75rem; }
+    section { margin-bottom: 2rem; }
+    .footer-preview {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(31,31,31,0.95);
+      padding: 1.25rem 1rem;
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-preview img { height: 28px; width: auto; opacity: 0.8; filter: invert(1); }
+    @media print {
+      .pdf-hint, .navbar, .banner, .dragonfly-bg { display: none; }
+      .main { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dragonfly-bg" aria-hidden="true"><img src="logo/dragonfly-bg.png" alt=""></div>
+  <div class="bg-texture-overlay" aria-hidden="true"></div>
+  <div class="content-layer">
+  <p class="pdf-hint"><strong>Preview:</strong> Double‑click this file to open it in your browser. To save as PDF: <strong>File → Print → Save as PDF</strong>.</p>
+
+  <header class="banner" role="banner">
+    <a href="Camp-Fly-Home-Preview.html" aria-label="Camp Fly home">
+      <span class="banner-words">
+        <img src="logo/banner-camp.png" alt="Camp">
+        <img src="logo/banner-fly.png" alt="Fly">
+      </span>
+    </a>
+  </header>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <nav class="navbar-links">
+        <a href="Camp-Fly-Home-Preview.html">Home</a>
+        <a href="Camp-Fly-Preview.html">Burgin Initiation</a>
+        <a href="Camp-Fly-Media-Preview.html">Media</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main">
+  <h1>Camp Fly — Burgin Initiation</h1>
+  <p class="intro">A practical guide for first-time burners. Click a topic to expand it.</p>
+
+  <section id="welcome">
+    <h2>Welcome</h2>
+    <p class="intro">So you're interested in coming to Burning Man? You have way too much time on your hands? Would like to decorate your porch with lots of amazon boxes and you enjoy leisurely strolls into deep rabbit holes? Fantastic, we would love to have you at Camp Fly.</p>
+    <details>
+      <summary>Why preparation matters</summary>
+      <div class="content"><p>We have found that the people who tend to have the most fun are also the most prepared. Part of the magic of the event is the location—it is unlike any other place on earth, and can be challenging at times. Despite your best efforts, there will almost always be parts of your experience that will be difficult and disheartening, but, also, very rewarding. As you will soon see, it is definitely a rabbit hole. Every time you make a decision that you think will make things easier, it just opens up more decision/responsibility trees! This guide is meant to aid you in your journey, in rough order of how critical the preparation is to you actually attending the event.</p></div>
+    </details>
+  </section>
+
+  <section id="tickets">
+    <h2>Tickets</h2>
+    <details>
+      <summary>Obtaining tickets</summary>
+      <div class="content"><p>Are you obtaining them through our camp or elsewhere? Historically they have been difficult to come by, but beginning in 2023 this has changed and they have been a bit easier since, often with a large surplus near the event with people selling them below face value. As a camp, we discourage people from trying to get cheaper tickets in this way, as you are basically just having another burner subsidize your ticket, and it is as much against the spirit of the event as scalping tickets (highly discouraged/forbidden) when they were difficult to come by. Ask whomever is sponsoring you at Camp Fly if there are camp tickets available or if you will need to obtain them some other way. Information on tickets, and when they will go on sale, can be found at <a href="https://burningman.org/black-rock-city/ticketing-information/">https://burningman.org/black-rock-city/ticketing-information/</a></p></div>
+    </details>
+  </section>
+
+  <section id="getting-there">
+    <h2>Getting to and from the event</h2>
+    <details>
+      <summary>Driving yourself there and back</summary>
+      <div class="content"><p>Fairly self-explanatory—you will need a vehicle pass to get in and out. You are allowed as many people in each vehicle as can fit; they each need their own event ticket but one vehicle pass covers them all. The vehicle pass only grants you the ability to drive to and from camp once, not to drive around the event. Bear in mind there can often be a line that may take upwards of four hours. Talk to a camp lead about strategies to minimize the wait.</p></div>
+    </details>
+    <details>
+      <summary>Get a ride from a campmate</summary>
+      <div class="content"><p>Coordinate with a camp lead (Grant, Chris or Doug), or if you are adventurous, an online burner forum.</p></div>
+    </details>
+    <details>
+      <summary>Fly to Reno, then</summary>
+      <div class="content">
+        <p>Three main options once you're in Reno:</p>
+        <details><summary>Fly in on a small puddle jumper</summary><div class="content"><p>Obviously the most expensive/baller option. About 30 minutes. Cuts the line at gate. Limited flight times available; book in advance (flights also available from San Francisco).</p></div></details>
+        <details><summary>Take the Burner Express bus</summary><div class="content"><p>This option cuts the line at Gate and brings you from the Reno airport right to the playa. Limited times available and they sell out quickly.</p></div></details>
+        <details><summary>Rent a car at Reno airport and drive</summary><div class="content"><p>Expensive, and you have to clean the car really well, but works well especially if you have several people on the same flight—it allows you to go buy whatever supplies you might need on the way. You will need a vehicle pass of course and will be subject to whatever line at gate.</p></div></details>
+      </div>
+    </details>
+  </section>
+
+  <section id="lodging">
+    <h2>Lodging</h2>
+    <p class="intro">There are several options for how to shelter yourself, discussed below in greater detail:</p>
+    <details><summary>Tent</summary><div class="content"><p>The cheapest option will be a tent—it is also the dustiest and hottest method. Would generally recommend something as large as possible.</p></div></details>
+    <details>
+      <summary>ShiftPod</summary>
+      <div class="content">
+        <p>There is a very popular option made by a burner called a ShiftPod. These are large enough for a queen-size bed, a wardrobe, and chair. They are insulated, light-reflecting, and have vents for you to add a swamp cooler or air conditioner. They are very easy to set up, but are heavy and fairly bulky. There are three options for cooling your ShiftPod:</p>
+        <details><summary>Doing nothing</summary><div class="content"><p>Could maybe use a battery-operated fan or something; if we get a cool weather year this could be fine.</p></div></details>
+        <details><summary>Swamp cooler</summary><div class="content"><p>Generally homemade but I have seen them online. Here is a website with a formula <a href="https://burningman.rengeekcentral.com/swampcooler.html">https://burningman.rengeekcentral.com/swampcooler.html</a> that many burners use. These don't take much power and can run off DC power like a car battery, but you will need to recharge the battery periodically using a solar panel or some other method and you will need to add water as well. An Achilles heel of this style is that the little DC water pump will burn out if you run out of water, so I would recommend bringing extra if you go this route.</p></div></details>
+        <details><summary>Portable air conditioner</summary><div class="content"><p>Biggest issue with these is that you will also need to buy a large enough generator to run the AC unit. Test your extension cord, generator, and AC unit extensively before lugging them all to the playa to make sure they all work together.</p></div></details>
+      </div>
+    </details>
+    <details><summary>Car / cargo van</summary><div class="content"><p>Simply outfitting a car, truck or van so that you can sleep in it comfortably. This is a very popular option and can work well if you have a vehicle already this will work for, or can be a cheaper option if you are renting rather than renting an RV. Some work involved in making it livable but it works and is a pretty common option.</p></div></details>
+    <details>
+      <summary>RVs</summary>
+      <div class="content">
+        <p>Clearly the most baller route, but once this decision is made it's a good example of a Burning Man rabbit hole—it really is just the beginning of what you need to figure out. There is a lot here, so I will break this down into categories.</p>
+        <details>
+          <summary>Do you own, rent, or are you buying an RV?</summary>
+          <div class="content">
+            <details><summary>Own</summary><div class="content"><p>So you already own an RV, great! Some questions to ask yourself—have you used it a lot? Do you know where all the bodies are buried/aka fix things when they break/aren't working as expected? Do you have solar? An on-board generator? Do you know what size tanks you have? If you have used your RV a lot already and are comfortable with "boondocking" aka camping without hookups, that will help tremendously. If not, read on for further information regarding the various options and systems.</p></div></details>
+            <details><summary>Rent</summary><div class="content"><p>Ok, so you are going to rent an RV. Bear in mind that 70,000 people go to Burning Man every year, many of them in rental RVs. Being that Labor Day is the last day of the event, it is already a popular week for renting an RV. Add to that, many people do not wish their RVs to be used for Burning Man, so it can get tricky/expensive to find a willing owner. There are sites, outdoorsy.com being the most well known, that allow you to search for "festival friendly" rentals. Do yourself and the community a favor and don't lie about the use, it gives Burning Man a bad name, and trust me, there is no hiding the fact that you went to the burn. Picking up in cities near the event such as Reno, northern California or even AZ can be 2x the price due to the demand surge for the event. I have seen the best prices in Denver and Salt Lake City in terms of proximity to the event. Please also be aware that this will be the end of the rental season so the chances that the rental company will be delivering you a rental with issues they are already aware of but had no time to fix because it is rented back to back—is high. They of course pretend to not know, then ship the rental on to the next person. You should read on about the major systems in RVs in order to get a handle on what you should be looking for. I would say about half the time, rental RVs show up with some critical system not working—fridge, AC, generator, etc.</p></div></details>
+            <details><summary>Buy</summary><div class="content"><p>If you can swing purchasing there are some advantages for sure. For one, if you go to sell it the next year and have time to mess with all of that, this can actually compete with renting in terms of expense, if you buy and sell well. Owning will give you time to learn the major systems, and make sure they are working. Also gives you the ability to store the RV and pay insurance on it.</p></div></details>
+          </div>
+        </details>
+        <details>
+          <summary>Styles of RVs</summary>
+          <div class="content">
+            <details><summary>Towable</summary><div class="content"><p>Just like it sounds—these are RVs you tow behind a vehicle. An advantage to these is that you don't need to purchase an automobile style insurance policy as the insurance follows the tow vehicle. A very important consideration with this style is the capability of your tow vehicle—aka, can you tow this much weight. Most trailers start around 4k lbs and ideally you should have a little extra. They do make small, lightweight teardrop style trailers but at that point, they are little more than tents—no bathroom, no AC, outdoor kitchen. At that point, personally, I would rather have a ShiftPod as they provide a lot more living space.</p></div></details>
+            <details><summary>Drivable</summary><div class="content"><p>Several styles—Class A (bus/flat front), Class B (Mercedes Sprinter type), Class C (truck/van front). These come in all different sizes, shapes, engine types.</p></div></details>
+          </div>
+        </details>
+        <details>
+          <summary>Water and waste tanks</summary>
+          <div class="content">
+            <p>You should be aware of the size of your tanks, and it would be great if you had an idea (from using it previously) how much water you will use and put into your tanks. There are many different ways tank sensors work and it is a good idea to familiarize yourself with what your tank lights/sensor lights mean and what their limitations are. For instance a common style will be a series of three lights so being at 2/3 full will show you the same as being just over 1/3 full. Just good to know how yours works. Also, make sure you test your waste tanks, even on the way out if you have to, to identify leaks that may be present. If your grey water or black water tank are leaking, you may not be able to use them at the burn depending on severity. Better to identify on the way when you are within reach of a Home Depot.</p>
+            <details><summary>Fresh water tank</summary><div class="content"><p>This is the clean water you bring to drink, cook with, shower and use your toilet with. Some people opt to augment their supply by bringing separate drinking water. I recommend flexible 5 gallon collapsible water jugs for this as they are lightweight and can collapse down when you are done with them. The hard plastic ones like to fly away when they are empty. You can also just buy disposable 1–2 gallon jugs of water for drinking.</p></div></details>
+            <details><summary>Grey water tank</summary><div class="content"><p>This is where your shower and kitchen sink drain into. They fill up quickly unless you are very careful. Especially with dishes—can be sneaky—oftentimes people are used to running the tap when cleaning up, so I recommend bringing a spray bottle to clean dishes and wet your sponge with rather than running the faucet to do those things. We also use paper plates mostly to cut down on dishes and think out our menu plan so we are doing as few dishes as possible.</p></div></details>
+            <details><summary>Black water tank</summary><div class="content"><p>This is where your toilet flushes into, and depending on your RV, your bathroom sink may also drain into this as well.</p></div></details>
+          </div>
+        </details>
+        <details><summary>Air conditioning</summary><div class="content"><p>Bear in mind that air conditioning takes a lot of power. If your RV has an on board generator, you will need to run it in order to run your air conditioner. Make sure you bring enough gas to get you to and from the playa, plus run your generator. If you are renting, make sure you understand their policy regarding how much generator use is allowed and what the overage costs are. If your RV does not have an on board generator, then you will need to purchase and bring it with you, and bring the gas you will need to run it.</p></div></details>
+        <details><summary>Electrical system</summary><div class="content"><p>Make sure you understand the electrical system of your RV. How many amp hours does it have? What types of batteries, e.g. lead acid/AGM/Lithium? Do you have an inverter for running AC type appliances off your battery bank? How will you recharge your house batteries? Do you have solar capacity and if so how many panels and what is designed to run off the solar? Oftentimes solar panels and your house battery bank will not provide you enough power to run your air conditioner unless you invested heavily into this capability. Do you know where the main shut offs and circuit breakers are and what they control?</p></div></details>
+        <details><summary>Slides</summary><div class="content"><p>Does your RV have slides? If so, do you know how to manually override them in case of issues?</p></div></details>
+        <details><summary>Refrigeration</summary><div class="content"><p>Does your RV have a fridge? Do you know if it runs off propane or electricity? If it runs off propane, do you know where the pilot light is and how to tell if it is on? It is pretty common for the ignition chamber to get fouled, good idea to develop confidence the fridge is working before arriving on the playa. Make sure you know what the lights mean.</p></div></details>
+      </div>
+    </details>
+  </section>
+
+  <section id="water-hydration">
+    <h2>Water/hydration</h2>
+    <p class="intro">Remember that you are going to be in a desert.</p>
+    <details>
+      <summary>Staying hydrated</summary>
+      <div class="content"><p>One of the more common mistakes we see people make is not properly hydrating. It can take a day or two to recover fully from allowing yourself to get dehydrated. Bring Nalgene or HydroFlask wide mouth water bottles, and bring them with you everywhere. Important to drink a shit load of water—remember it's a desert—1–2 gallons per day. Bring self adhesive labels and you can write your name and camp address on them for affixing to your bottles. Highly doubt someone will return them but you never know. You will need a bunch, think four. Each night you will go out with at least two, one filled with water and one more for your alcohol of choice.</p></div>
+    </details>
+  </section>
+
+  <section id="food">
+    <h2>Food</h2>
+    <p class="intro">This is highly personal and will depend on what lodging you are bringing, but here are some thoughts and tips. Generally speaking, a little forethought—making sure you have food you will be happy eating—goes a long way towards your on playa happiness. Listing some options to consider from least to most work.</p>
+    <details><summary>Free Food on Playa</summary><div class="content"><p>There is a lot of food being given away on playa. If you aren't choosy and don't mind lines, this is a good way to go and meet people and take advantage of what the playa will provide.</p></div></details>
+    <details><summary>Free food at Camp Fly</summary><div class="content"><p>On a volunteer only basis, people often like to step up and cook meals for the camp. As we approach the event, we will send out a schedule of who is cooking what and on what nights. It is common that more than half of our meals are communal like this.</p></div></details>
+    <details><summary>Backpacker Meals</summary><div class="content"><p>Backpacker meals are the easiest, cleanest, lightest, least overhead way of feeding yourself, say if you are camping in a small tent, flying in, etc. It works.</p></div></details>
+    <details><summary>Meals that require refrigeration</summary><div class="content">
+      <p>If you are bringing a cooler and or fridge in an RV, some easy options are:</p>
+      <ul class="content-list">
+        <li>Take out—saucy works best like Indian or Thai curries</li>
+        <li>Prepared meals like Kevin's Paleo</li>
+        <li>Consider freezing leftovers from meals you like over the course of the summer</li>
+        <li>Sous vide cooked meats are very food safe and mess free, just warm them up</li>
+      </ul>
+    </div></details>
+    <details><summary>Some other notes to consider</summary><div class="content">
+      <ul class="content-list">
+        <li>Consider vegetables and sides that don't need refrigeration—mac and cheese, potatoes, instant mashed potatoes, etc.</li>
+        <li>Camp Fly provides a large grill and burner for communal use so that you can cook outside, not smell/heat up your RV or tent.</li>
+        <li>Consider bringing a cooler. They are more bomb proof than RV fridges, as they will always work if you just add ice. Ice is the only item that can be purchased at Burning Man. All other sales of everything are prohibited.</li>
+        <li>Dry ice (available from most grocery stores at the customer service desk) can drop the temp of your cooler and food down by another 10–20 degrees and will sublimate (evaporate) rather than turn to water so less mess. This can give you an extra 2–4 days of cooling power to start the week off, where you don't need to add ice. This can give you the ability to fill your cooler completely, and then make room for some ice as you eat.</li>
+        <li>Don't bring meals that will require a lot of prep and create dishes or trash. We use paper plates to cut down on water use in the RV and live with the extra trash, but all vegetables arrive to the playa prepped, all meals cooked and just require grilling or reheating. Saves time, hassle, mess, and trash.</li>
+        <li>Biased because it is one of my favorite foods, but breakfast burritos make a nice, filling breakfast and are easy to clean up and reheat, and can be pretty easily purchased if you don't feel like cooking your own.</li>
+      </ul>
+    </div></details>
+  </section>
+
+  <section id="clothing">
+    <h2>Burning Man Clothes &amp; Style Guide</h2>
+    <p class="intro">You can walk around naked at Burning Man, many do, but always nice to have options. The idea with clothing at Burning Man is that you should be dressing as though you are part of a stage act—we are all characters in some bizarre play, not dressed like audience members. Wear something that is at least a little off the wall. It is ideal to completely go it on your own and come up with your own unique ideas—so think of this list as less of a &quot;go buy all this shit&quot; and more of a, most people have these items, just to give you a jumping off point.</p>
+    <p class="intro">Clothes shopping for Burning Man can feel overwhelming at first. If you don't know where to start, look on Instagram or Google and find a few looks you like. It helps to get inspired and then build from there.</p>
+    <p class="intro">It's recommended to get everything as early as possible, ideally months in advance, especially if you're ordering from China. Shipping delays are real. Thrift stores are great, and Amazon, Temu, Shein, and Etsy (usually more expensive) are all good places to look.</p>
+
+    <details><summary>Plan for Different Temperatures</summary><div class="content">
+      <ul class="content-list">
+        <li>You'll need different outfits throughout the day.</li>
+        <li>In the morning, you'll probably want something comfortable for coffee and breakfast around camp.</li>
+        <li>During the day, it gets really hot. You'll want light clothes and sometimes as little as possible.</li>
+        <li>At night, it can get cold, sometimes really cold. Layers are key.</li>
+        <li>Some years it is so cold that you will need a full fur jacket, hat and gloves, and other years the nights are so warm you will wear the same outfit day and night and never look at your coats. You never know what you're going to get, so bring options and layers.</li>
+        <li>The most common activity at night is to bike around, so you can always throw extra layers in your bike basket.</li>
+        <li>Definitely pack a hat and gloves. You might not use them, but if it turns into a cold year, you'll be very happy you brought them.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Try Everything On Before You Leave</summary><div class="content">
+      <ul class="content-list">
+        <li>Make sure you try all your outfits on before you go. See what looks good together and what doesn't. Out there, you probably won't have a proper mirror or the space to try a bunch of things on, so it really helps if everything is organized ahead of time.</li>
+        <li>Some people pack each outfit in a Ziploc bag and organize them by day. It might sound extra, but it makes life easier and it keeps your clothes clean and dust-free until you wear them.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Jackets</summary><div class="content"><p>Bring a few different types maybe a short one, a longer one, something with a hood. Fake fur coats are very common.</p></div></details>
+
+    <details><summary>Boots &amp; Camp Shoes</summary><div class="content">
+      <ul class="content-list">
+        <li>Comfortable boots are important. You need something you can wear for hours without getting blisters, especially at night. You might be gone for 8+ hours, and you don't want to head back just because your feet hurt. You can also have a few fun ones that you can wear for shorter period of time.</li>
+        <li>Wear your boots before you go. Don't break them in on the playa.</li>
+        <li>It's also nice to have a slip-on pair of shoes just for camp. You'll probably be going from one RV to another, and it's easier to slide something on and off instead of lacing up every time.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Socks</summary><div class="content"><p>Bring more socks than you think you need. Two pairs per day recommended. Your feet will get hot and sweaty, and changing into fresh socks makes a big difference. Just make sure they're comfortable and work with all your boots.</p></div></details>
+
+    <details><summary>Belt / Backpack</summary><div class="content">
+      <p>Unless you're outside your RV or tent, you pretty much need your belt or backpack on you at all times. It sounds dramatic, but a dust storm can roll in between the time you walk to the bathroom and back. Here are the items you will want to carry with you pretty much any time you walk out of camp:</p>
+      <ul class="content-list">
+        <li>Goggles</li>
+        <li>A mask (some people wear it around their neck all the time, but I find that way too hot)—I prefer a neck gaiter or a scarf</li>
+        <li>Tissues (the porta-potties don't always have toilet paper, and by nighttime they can be pretty gross; it's best to walk in ready so you can be quick)</li>
+        <li>Sunscreen</li>
+        <li>ChapStick</li>
+        <li>Water jug</li>
+        <li>Utility belt or small backpack, hydration backpack. If your backpack has a water bladder and is well lit, that's three birds with one stone—storage, hydration, lighting.</li>
+        <li>ID in case you want to stop at a bar. Some people get away with photocopies of their ID, but it is recommended to bring your actual, maybe in your phone case.</li>
+        <li>Some type of mug with which you can receive free beverages.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Lights (Non-Negotiable at Night)</summary><div class="content">
+      <ul class="content-list">
+        <li>At night, if you don't have lights or something glowing on you, people won't see you and you run the very real risk of getting run over by an art car or an ebike. Make sure you are lit up. People who don't light themselves are called &quot;darkwads&quot;. Don't be a darkwad, and bring lights to throw at (gift) them when you see them.</li>
+        <li>You can get fairy lights on Amazon and weave them into your hair or outfit. There are tons of options just grab a few different things. We used glow-in-the-dark wristbands.</li>
+        <li>Flashlight or a headlamp works great, you can keep it around your neck or in your pocket for easy access. Especially for the bathroom—first, it helps you see if a porta-potty is occupied. Then once you're inside, it helps you get situated. The bathrooms get pretty rough as the week goes on, so you want to be in and out.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Accessories</summary><div class="content">
+      <ul class="content-list">
+        <li>Cool, different sunglasses are great to have. It's nice to bring a few pairs so you can switch them up depending on your hats, scarves, or wigs. Same goes for jewelry, bring lots of fun, playful pieces. Fun boots and shoes too.</li>
+        <li>Just don't bring anything that's actually valuable to you. The playa dust is no joke and it will destroy things. If you'd be sad about losing it or ruining it, leave it at home.</li>
+        <li>Can be a fun activity during other travels to buy large, inexpensive pieces of jewelry to wear on playa. For guys, a necklace can be your shirt during the day.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Leaving the Playa</summary><div class="content"><p>If you're flying or taking a bus home, pack a clean set of clothes in a separate Ziploc bag including clean shoes and a towel. That way you can shower before leaving and not put dusty clothes back on. Even if you're driving, it's really nice to have clean clothes for the ride home. You'll be very ready to wear regular clothes and you might appreciate being able to fade into the woodwork a little during gas stops!</p></div></details>
+
+    <details><summary>Don't</summary><div class="content">
+      <ul class="content-list">
+        <li>Don't bring clothes or accessories with feathers, sequins, glitter, or anything that can fall off and become MOOP (Matter Out Of Place).</li>
+        <li>If pieces start shedding, you're basically creating trash that becomes someone else's problem and you don't want to be that person.</li>
+        <li>When in doubt, leave it at home.</li>
+      </ul>
+    </div></details>
+
+    <details><summary>Example items</summary><div class="content">
+      <p>At the point of publication these links were all alive but if you find some dead ones, just googling or searching in amazon with &quot;burning man + the name of the thing&quot; should get you results as well.</p>
+      <ul class="content-list">
+        <li><a href="https://www.amazon.com/dp/B009EUSUYU?ref=ppx_yo2ov_dt_b_product_details&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Example of women's boots</a></li>
+        <li><a href="https://www.amazon.com/ChicWind-Womens-Backless-Sneaker-Summer/dp/B08ZNP3XJP/ref=sr_1_18?crid=30JQ8S0GPPXO3&amp;dib=eyJ2IjoiMSJ9.2AasIBHYTU7JdwqyuBytAtdy8qzxkXMCIuDEtq8TkwFE68BuohyfHKzEOfZh3O2Dppp39CoIfdvCN22G7vJSqHYSKt2gbD_cPTWW7-yjA0C6-dO1E-KFzY2ijnQxvrnMrH_pcpdgysnFfKz-sVcmnlJvUikzc4REoiaKRLRwut1UW10nAfI4i-Y98fKB1mCAM8j0o8c36qK11sh7bI_4CduXZTC_dAVdH2P7TTFsfwrcyI7oef2jy_l9ZdNI6NwSlOYhY7DZuY4InQzYOOidO3Kd-I_ncb0cb6OfiPHyDHU.CQ6eMuA0mee5My_9FyJhZLTNsHcQxML8gfL26wpATTw&amp;dib_tag=se&amp;keywords=slip%2Bon%2Bshoes%2Bfor%2Bwomen%2Bwith%2Bno%2Bback&amp;nsdOptOutParam=true&amp;qid=1772236375&amp;sprefix=slip%2Bon%2Bshoes%2Bfor%2Bwomen%2Bwith%2Bno%2Bbac%2Caps%2C222&amp;sr=8-18&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Women's slip-on camp shoes</a></li>
+        <li><a href="https://www.amazon.com/Accessories-Extension-Butterfly-Halloween-Christmas/dp/B0B3R29C14/ref=sr_1_1_sspa?crid=BWDJ3CCOFYR5&amp;dib=eyJ2IjoiMSJ9.q1Vi59SvCW3V8EWWNpTK2erwWQr3r57jrAskCdp9yAzNX8-QFHfNOTrLVJrw-XMhwGaNOjNzUmB3__zM1DvpKi7ni1CHwtQT4_sQDfVBypfobCguY6jI8xb79xdiQESXsTG8Wm8q9JZgxfXG6SXnoO3ur_URReW0RxucGB_MOCzwh7mfAD1HDG2Thp_MmLEhokkJ3OyXXKcXr7IswSpJ3MQ0SYiynGFG78Fd3lf6pUSmA3diJlP_sZBB_6PAllfoX1jQdwuxo70fkU8zOcu0MXMwBtK1SWS4oXnUWzTGRfQ.S5iXfQXapf8qCpOcCskct8BUuJ21W04D7iN4Sk3If00&amp;dib_tag=se&amp;keywords=fairy%2Blights%2Bfor%2Bhair&amp;qid=1772147679&amp;sprefix=fairy%2Blights%2Bfor%2Bhair%2Caps%2C431&amp;sr=8-1-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;th=1" target="_blank" rel="noopener noreferrer">Fairy light hair clips</a></li>
+        <li><a href="https://amazon.com/Battery-Operated-Waterproof-Firefly-Christmas/dp/B07WG18RLT/ref=sr_1_6?content-id=amzn1.sym.07707253-6e84-40ab-9658-0afe39d3aac6%3Aamzn1.sym.07707253-6e84-40ab-9658-0afe39d3aac6&amp;dib=eyJ2IjoiMSJ9.cxnciR4lxHlYNOCV7qtwIoMF8wxYqhca5kfR3-G94MyhkFISUDUQZ8Yq6Qea8u-GZsJj90OAG4bkBfEJFxsM0yQrEYW3alrfADI7rrxHUrFEQwIMqwzoc0c0qgslqbeqyG2TuvY6_b_urIHVdSP4HYqA5f8WtR2AkPWNvXW0uwxLTPcuoI92QhnQR238saoM5sy6yyGzMjQg4s4Vg8W1BMWwtfVCExo9Z_TIli8Src6At-gpb1BOwI6K4_izUlpzJ1ZSPjUaFooQZRcs-TiaVhIp0GzarTPq9jXQQodVExU.MXD-H1XuhSJftJjFpMyUPuBkcUPnsTMMPNK2SLbtw34&amp;dib_tag=se&amp;keywords=indoor+fairy+lights+decoration&amp;niid=sxts_ai_ovws_lst_c_1_0&amp;nrid=B047249276C54E3DB055&amp;pd_rd_r=a1652dab-7a18-41e4-ba14-e8ec4e3c402d&amp;pd_rd_w=186Jg&amp;pd_rd_wg=h2OW2&amp;qid=1772386334&amp;qis=NileBrowseNode&amp;sr=8-6" target="_blank" rel="noopener noreferrer">Fairy lights</a></li>
+        <li><a href="https://www.amazon.com/Bracelets-Wristbands-Wristband-Christmas-Festivals/dp/B07X1BYNW2/ref=sr_1_3_sspa?crid=CJCJMOWA148M&amp;keywords=glow%2Bin%2Bthe%2Bdark%2Bbracelets&amp;qid=1688741533&amp;sprefix=glowing%2Bin%2Bthe%2Bdark%2Bbracelet%2Caps%2C129&amp;sr=8-3-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;th=1" target="_blank" rel="noopener noreferrer">Light up wristbands</a></li>
+        <li><a href="https://www.amazon.com/Peicees-Motrocycle-Mountain-Motorcross-Off-Road/dp/B07GJC3QBY/ref=sr_1_15_sspa?crid=173PZQQWGFVDJ&amp;dib=eyJ2IjoiMSJ9.xPYXJgQM_1LOYskHlmiXZeG1yjS_GZgS3SaAZXAd58dPSIURB117OA8lx0QJY1_JicEtkQn-Y6sEHycjC9hZTmxL7dE4t6WXGC6minW-9c2wY7wxTbsoXkeSCQiGOGQ06dIrH1wJozCsKW_IJhZbhTIVI1if7OJ0g67UFXifWWLZtaQle9rD0EHFPzDUCAFK6ZWTquM1DZd_mUlJiQvxjPom98PkNcMBGnU1V4yTQkpUsRq-vEuvkJdJWB3gLkpRfF8pjbxXWRZpiE6pVchYVVfVjynkBh91p5g8WQKKT00.x22fqrgncHowHAuwvGMFnLuFuLhQvzcabys2QsSV-ak&amp;dib_tag=se&amp;keywords=goggles%2Bto%2Bprotect%2Bfrom%2Bsand%2Bstorm%2Band%2Bdust&amp;nsdOptOutParam=true&amp;qid=1772236720&amp;s=sporting-goods&amp;sprefix=goggles%2Bto%2Bprotect%2Bfrom%2Bsand%2Bstorm%2Band%2Bdust%2Csporting%2C197&amp;sr=1-15-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&amp;th=1" target="_blank" rel="noopener noreferrer">Goggles</a></li>
+        <li><a href="https://www.amazon.com/BASE-CAMP-Breathable-Respirator-Activated/dp/B0D38971TY/ref=sr_1_10?crid=1LQ5V1GVCN1VS&amp;dib=eyJ2IjoiMSJ9.rlIfCahjqRxM96KeJAUJhd9x8R_2hhTcmWHcgK2A0keOWl7SLtq1UhJyTrx-dbTxp0hvCPBwJUqf69wq2dTQIBUuaobtVxkLNgl70_SUJFnWacLkpBCoUZrHJPn3d13H4py_SOtcAW4fhSV10PNlP9dXx4XBREbFZqqafVYNyQZdO9OpQUEzCpYS1aRgSNPx-nTsSkQsaBu4Bm1wblRmfO5II9kFz_sZba8K39eGbJSsJ-lzshtXI1E4SrY831DaZLwCiSVEKt2CGy4SXdmbOdAIafVl5Z-Moqplra2HYoc.va3grmSwuSLfXqXaKX7yqw_vT2T90QoMySu63wEs5y8&amp;dib_tag=se&amp;keywords=sandstorm%2Bmask&amp;qid=1772236910&amp;sprefix=mask%2Bfor%2Bsands%2Caps%2C328&amp;sr=8-10&amp;th=1" target="_blank" rel="noopener noreferrer">Dust mask</a></li>
+        <li><a href="https://www.amazon.com/WindRider-Ultimate-Protection-Facemask-Headband/dp/B07G871QLF/ref=sxin_17_pa_sp_search_thematic-asin_sspa?content-id=amzn1.sym.95c17fe7-ebcb-48de-a1a0-a239e3576d28%3Aamzn1.sym.95c17fe7-ebcb-48de-a1a0-a239e3576d28&amp;crid=3KDA7HZGHHOSB&amp;cv_ct_cx=neck%2Btube%2Bfor%2Bskiing%2Bthin&amp;keywords=neck%2Btube%2Bfor%2Bskiing%2Bthin&amp;pd_rd_i=B07G871QLF&amp;pd_rd_r=555ded0b-9253-41eb-9946-365402ab2fe0&amp;pd_rd_w=ks0Mc&amp;pd_rd_wg=XNPUC&amp;pf_rd_p=95c17fe7-ebcb-48de-a1a0-a239e3576d28&amp;pf_rd_r=YHYYJV9E7JRC4XYVY9PF&amp;qid=1772236809&amp;s=sporting-goods&amp;sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&amp;sprefix=neck%2Btube%2Bfor%2Bskiing%2Bthin%2Csporting%2C234&amp;sr=1-2-905f6665-3817-4290-88eb-a2363c78a4a1-spons&amp;aref=o8nTEjJhqn&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&amp;th=1" target="_blank" rel="noopener noreferrer">Neck gaiter</a></li>
+        <li><a href="https://www.amazon.com/gp/product/B00UKFZKD2/ref=ewc_pr_img_3?smid=AXV9P6LOCTVAG&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Scarf</a></li>
+        <li><a href="https://www.amazon.com/Old-DIrd-Sleeve-Fluffy-Outerwear/dp/B077R24YJL/ref=sr_1_2_sspa?crid=2FRC7PM1BGCJD&amp;keywords=burning%2Bman%2Bfur%2Bcoat&amp;qid=1652473463&amp;sprefix=burning%2Bman%2Bfur%2Bcoat%2Caps%2C108&amp;sr=8-2-spons&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Men's fur coat example</a></li>
+        <li><a href="https://www.amazon.com/dp/B01AOE3MH4?aaxitk=G2PGJ07iF5OGSbz2P7YVAw&amp;pd_rd_i=B01AOE40IY&amp;pf_rd_p=9420597b-7dad-4cbd-a28d-7d676ac67378&amp;hsa_cr_id=3883242810501&amp;sb-ci-n=asinImage&amp;sb-ci-v=https%3A%2F%2Fimages-na.ssl-images-amazon.com%2Fimages%2FI%2F81pa-UKfdML.jpg&amp;sb-ci-a=B01AOE40IY&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Men's kilt</a></li>
+        <li><a href="https://www.amazon.com/LannaPremium-Fisherman-Pants-Trousers-Cotton/dp/B00ITU8FX2/ref=sr_1_2_sspa?keywords=thai%2Bfisherman%2Bpants&amp;qid=1652473604&amp;sprefix=thai%2Bfisherman%2Caps%2C116&amp;sr=8-2-spons&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Men's thai fisherman pants</a></li>
+        <li><a href="https://www.amazon.com/ILOVEMASKS-Holographic-Festival-Marching-Steampunk/dp/B08JLLY6CL" target="_blank" rel="noopener noreferrer">Popular burning man hat example</a></li>
+        <li><a href="https://www.amazon.com/Carnavalife-Natural-Cowboy-Unisex-Coachella/dp/B085GJGC44/ref=sr_1_5_sspa?dib=eyJ2IjoiMSJ9.zY5fxbSV7xb9sajv5u-IJHJerCIqCJGevoS6Jf25GqsrDMYzEzZIaAQ8p6RwcbNDwBJvISSKsxE0r_0BIc1YpH8Hg5NNK5sp1YjcN-KDbyNiFR3WyW3BYpaglm_xuYcAHJDW5wdi36ZWdcrnccFfG6Db_qtKlGlGPFFlM_gZ2dRlRC2hpvfXGq7YCz1OFxc3YfVVY5XAkw_msTo4G3VLnNsexYr7GDCYJJKwV9ogS54qDzMLQJm3WONZD9pKHUJBT2P6n1QrYnMWx6nDQme9uMZNZSSBE2LfICnU551ANOk.f1UcGmnB795ogNM8VDprGCqfNghOVY1x36-ZQOSohOg&amp;dib_tag=se&amp;keywords=straw%2Bcowboy%2Bhat&amp;qid=1772383351&amp;sr=8-5-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Straw cowboy hat example</a></li>
+        <li><a href="https://www.amazon.com/Premium-Shemagh-Head-Neck-Scarf/dp/B0749RFLV2/ref=sr_1_11?keywords=burning%2Bman%2Bgoggles&amp;qid=1563427499&amp;s=gateway&amp;sr=8-11&amp;th=1" target="_blank" rel="noopener noreferrer">Popular scarf example</a></li>
+        <li><a href="https://www.walmart.com/ip/BURUDANI-Men-s-Military-Tactical-Work-Boots-Side-Zipper-Leather-Motorcycle-Combat-Boots/12069104527?classType=VARIANT&amp;adsRedirect=true" target="_blank" rel="noopener noreferrer">Men's boot example</a></li>
+        <li><a href="https://www.amazon.com/ADVENTURIST-Stainless-Camping-Folding-Carabiner/dp/B06XGCZN3Z/ref=sr_1_8?crid=1UEVDV1P81SY6&amp;dib=eyJ2IjoiMSJ9.Osg61YGrYXCoDhcT3LD1_7ug-W1nPS_VpkvpKdqzD488DtEP_3cSRieUlnkbo3DW-PwaypEAm6Z-X5ksZqOKRKCjMBI5Vl0MhVR0v_sTe7ABxpA4i3Bz7fxhSzVk1b3zaePwVhXoGk4ogOu4EVMbTJ98eeVx1un2mzRRYignMct6hvSavqVBrljkF8y1xJEfTkku8uux9c6WnIdHODmpXON0Qlf8BLyn91XH1lQceCGGrqIS_RQ33yeuW31MnX8HOlGcggQrfq_zxmwgu_P3p8tFuV4gGot97nQHhQv0w4.jonpSLjyr4AhwGPPJYS_3BhQmzm8qmLLmc0mg1T240A&amp;dib_tag=se&amp;keywords=carabiner%2Bmug&amp;qid=1772383704&amp;sprefix=carabiner%2Bmu%2Caps%2C255&amp;sr=8-8&amp;th=1" target="_blank" rel="noopener noreferrer">Carabiner mug</a></li>
+        <li><a href="https://www.amazon.com/Cotton-Leaf-Pocket-Waist-Belt-Sage/dp/B07MTPLF8M/ref=pd_day0_d_sccl_2_1/139-5730006-4796938?pd_rd_w=yfy2L&amp;content-id=amzn1.sym.de286d99-05f6-43bf-9d9c-b57de9652232&amp;pf_rd_p=de286d99-05f6-43bf-9d9c-b57de9652232&amp;pf_rd_r=8HJN0C74WZBB3GM3NP53&amp;pd_rd_wg=WMr4A&amp;pd_rd_r=27aa3ab5-7d29-4ced-9dbf-d46fed8fafe9&amp;pd_rd_i=B07MTSBC1X&amp;th=1" target="_blank" rel="noopener noreferrer">Utility belt for women</a></li>
+        <li><a href="https://www.amazon.com/dp/B0122WL02A/ref=sspa_dk_detail_2?pd_rd_i=B0122WL02A&amp;pd_rd_w=sWfX8&amp;pf_rd_p=c83c55b0-5d97-454a-a592-a891098a9709&amp;pd_rd_wg=xEwaN&amp;pf_rd_r=G5JN4KKX66C91EA4QB4V&amp;pd_rd_r=3204ca13-44f2-4df9-95ea-d8a560b806e1&amp;spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUE0M0dITVlMWU1NVEUmZW5jcnlwdGVkSWQ9QTA1MTk2NDFRNUJIQ0NVRDQ1UUgmZW5jcnlwdGVkQWRJZD1BMDI1NzQ0MDNSRDNaMVlMQUk4VkQmd2lkZ2V0TmFtZT1zcF9kZXRhaWxfdGhlbWF0aWMmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl&amp;th=1&amp;psc=1" target="_blank" rel="noopener noreferrer">Utility belt for men</a></li>
+        <li><a href="https://www.amazon.com/Sojourner-Hydration-Pack-Backpack-Iridescent/dp/B0756PXVL1/ref=sxin_16_pa_sp_search_thematic_sspa?content-id=amzn1.sym.11f03cd7-d882-4fed-ae42-aff13d15d142%3Aamzn1.sym.11f03cd7-d882-4fed-ae42-aff13d15d142&amp;crid=1KLVJROUE27M0&amp;cv_ct_cx=backpack%2Bwith%2Bbladder%2Bfor%2Bevents&amp;keywords=backpack%2Bwith%2Bbladder%2Bfor%2Bevents&amp;pd_rd_i=B0756PXVL1&amp;pd_rd_r=12d38c6a-684b-439b-8037-ae4065f428c2&amp;pd_rd_w=jYZN8&amp;pd_rd_wg=Tja19&amp;pf_rd_p=11f03cd7-d882-4fed-ae42-aff13d15d142&amp;pf_rd_r=RKTBR17MNQGYG1TTHDZF&amp;qid=1772149467&amp;sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&amp;sprefix=backpack%2Bwith%2Bbladder%2Bfor%2Bevent%2Caps%2C328&amp;sr=1-3-6e60e730-e094-43e9-99e8-1a4854cd27ff-spons&amp;aref=lIiSOUDdgl&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&amp;th=1" target="_blank" rel="noopener noreferrer">Hydration backpack</a></li>
+      </ul>
+    </div></details>
+  </section>
+
+  <section id="on-playa-transportation">
+    <h2>On-playa transportation</h2>
+    <details><summary>Vehicle Pass- what it is and isn't</summary><div class="content"><p>Your vehicle pass only lets you drive in once (Gate Road to camp) and out once (camp to home). In other words you will not be able to drive your car or your motorcycle around on the playa- all the vehicle pass gets you is in through gate and to camp, and then you have to keep your vehicle at camp for the event until you leave. You need this for any vehicle driving in to camp, only one per vehicle and you do not need an additional one for trailers, like RV's. You can have as many people in the vehicle as you have event tickets. You do not need a vehicle pass if you are flying on to the playa or taking the burner express.</p></div></details>
+    <details><summary>On-Playa Transportation</summary><div class="content"><p>You'll want something to get around on the playa during the event, for most people this will be a <a href="https://www.amazon.com/Outroad-Cruiser-Commuter-High-Carbon-Comfortable/dp/B0DMQVKBN3/ref=sr_1_4?c=ts&amp;dib=eyJ2IjoiMSJ9.TFBKNYRe2SmyusM5f1N9xyqeMFZ4d0gnccEu7JuYsrMf437w37ullMT1dkkYKo0Kc4MG9D24TK5wihnAPAmTqaXNymHIu24IGQC6l9lpmLwoJwozwoUN-eqdoiqHTTIaXoKgpgbKnoWx4R2Czf2SvUq-Mks78Uayh3sJ3hTMRLiXxNioLsl24T12G5FP1GAuGXbnFSKN3izEajZsHIH4505OsPUQmG8xKc4JXutXVQ754GhfprTO3RynHHdfXb-DUh8gT148t4EO7sIUhboOeVSliFbBMVsnEekFQ6dqWrA.EkpXpPGV9XK3xp7o321Wecyw040FpCSuVsigAjDnQT8&amp;dib_tag=se&amp;keywords=Complete%2BCruiser%2BBikes&amp;qid=1772387859&amp;s=outdoor-recreation&amp;sr=1-4&amp;ts_id=110798011&amp;th=1" target="_blank" rel="noopener noreferrer">cruiser bike</a>. It's the fastest way to get around (faster than art cars with the 5 mph limit). If you have a cruiser and don't mind cleaning it well afterward, bring it; bring dry chain lube—with the dust your chain will need it. OneWheels and e-bikes are popular too. Think through how to get the bike to and from the playa. Camp Fly has a limited number of spares; talk to a camp lead (Grant, Chris, or Doug) to see if one may be available.</p><p>It is possible to rent bikes for the week from a place right before gate, and then simply return it after the week is over. Do not expect a bike in top working order, but many are pre-decorated a bit which can be nice. You will want to both light up and decorate whatever bike you have with you on the playa. A totem (something that sticks up high off the bike and lights up) can make you easier to find and help keep your group together, or find your bike after you leave it somewhere for a while, like if you go in to a bar or a sound camp.</p></div></details>
+  </section>
+
+  <section id="principles">
+    <h2>Burning Man principles</h2>
+    <p class="intro">Familiarize yourself with these; they'll aid your understanding and connect you with the ethos.</p>
+    <details>
+      <summary>Radical Inclusion</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>Anyone may be a part of Burning Man; no prerequisites exist for participation, and the community welcomes and respects the stranger.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>Don't be a douche bag. This is the friendliest group of humans many of us have ever met—but there are exceptions. Don't be one of them.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Gifting</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>The community is devoted to acts of unconditional gift-giving that do not contemplate a return or an exchange.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>There is no buying or bartering—just give things away. Our camp-wide gift is the art cars: bringing them, sharing them, giving people rides. Anyone camping with us is "doing it right" by supporting that. You can always do more (juggling, jewelry, etc.). Think of the first year as mostly nailing your own logistics and supporting the camp; in future years you'll have more bandwidth for other gifts.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Decommodification</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>To preserve the spirit of gifting, the environment is unmediated by commercial sponsorships, transactions, or advertising.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>It's a cool break to not have advertisements. Ideally we'd cover brand names on RVs too—certainly don't wear clothing with brand names.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Radical Self-reliance</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>Individuals are encouraged to discover and rely on their own inner resources to survive in the harsh desert environment.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>This is critical to your enjoyment and to how the camp and the event experience your presence. It's possible to show up unprepared and survive off others—but those people often have less fun and cause others to have less fun. Effort matters. It's fine to borrow a tool or get help; it's about having your logistics figured out. If you're staying in someone's RV, think about how you support them (e.g. cooking, dishes). Showing up and not reciprocating is not the right idea.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Radical Self-expression</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>This arises from the unique gifts of the individual and is offered as a gift to others, while respecting the rights of the recipient.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>Fly your freak flag, bring your art, stoke people out.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Communal Effort</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>The community values creative cooperation and collaboration.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>Help the camp out, help other burners out—it's fun.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Civic Responsibility</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>Community members assume responsibility for public welfare and conduct events in accordance with local, state, and federal laws.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>No one at Burning Man wants to be an authority figure. Try to get through by getting along.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Leaving No Trace</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>Participants are committed to leaving no physical trace and endeavor to leave places in a better state than they found them.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>Plan your event around not bringing and leaving trash. Pick up MOOP (Matter Out Of Place)—anything other than playa dust—and take it home. There are no public trash cans; only what we bring.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Participation</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>The community is committed to a radically participatory ethic. There are no spectators.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>What are you doing to delight and amuse? You're already helping bring the art cars. Add more if you like. There shouldn't be people who only show up to be amused—it's give and take. The person juggling in front of 500 people one day might be at topless Asian story hour the next. Say yes.</p></div></details>
+      </div>
+    </details>
+    <details>
+      <summary>Immediacy</summary>
+      <div class="content">
+        <details><summary>Official org definition</summary><div class="content"><p>This is a primary touchstone of value, seeking to overcome barriers between individuals and their inner selves and the reality of those around them.</p></div></details>
+        <details><summary>Why we think this matters</summary><div class="content"><p>Put your phone down for a week, try not to plan too far ahead, and try to say yes when people try to talk you into things.</p></div></details>
+      </div>
+    </details>
+  </section>
+
+  <section id="camp-dues-roles">
+    <h2>Camp dues / roles / contributions</h2>
+    <details><summary>Camp Fly contributions</summary><div class="content"><p>Camp Fly is an intimate group, very small for a Burning Man camp, and invite-only. We do not collect camp dues (they often range from a couple hundred to a couple thousand at other camps—e.g. large sound camps that cost millions and charge $1500/person for tents, food, bar, showers, power, mandatory shifts). Camp Fly, for better and worse, offers campers a communal shade structure with seating and a grill—no mandatory work shifts. We exist and receive space and tickets from the org because we bring art cars, which represent a large investment of time, money, and energy. Camping with Camp Fly piggybacks you on that effort. So ask yourself: if you don't own an art car, how are you supporting the people who do—before, during, or after the event? Cooking a meal, more camp cleaning, whatever you want. We appreciate being recognized through reciprocal acts of service; we'd rather keep it loose and in a spirit of gratitude than charge dues. If you read this and think "cool, I'm saving on camp dues" without giving back, you might not get invited back—and from experience, those people often have less fun and don't connect with the vibe. If you're not sure how to help, reach out to a camp lead (Grant, Chris, or Doug) for suggestions.</p></div></details>
+  </section>
+
+  <section id="navigating-the-playa">
+    <h2>Navigating the Playa</h2>
+    <details><summary>Navigating the Playa</summary><div class="content">
+      <p>Black Rock City, although temporary, has official addresses. The city is more or less circular as you can see in the below map. There are &quot;time&quot; dimensions as in what you would see on a clock, that are radial with the man at the center, and the temple at 12:00. Between 10:00 and 2:00, and in the center of the city near where the man is, is referred to as open playa. Between 2:00 and 10:00 is the actual city. The first circle street is called esplanade and has a lot of interactive theme camps. After esplanade, each concentric circle is alphabetical, starting with &quot;A&quot; and ending with &quot;K&quot;. Every year, org comes up with new street names that match the theme, but basically when sharing addresses with someone, you'd start with the time dimension and end with the letter. So a camp address might be 4:15 and E.</p>
+      <p>In general, it is almost always less distance to traverse the city by following a radial down to open playa and then cutting across the circle to the right radial (time) and then going down it until you hit the right letter. In the inner circle of open playa, meaning between the man and esplanade, it can be helpful to know that at 3:00, 6:00, and 9:00, there are &quot;promenades&quot;- streets basically that go from the esplanade to the man. They are lit with fire/tall torches at night so they are usually easy-ish to spot. Following/finding those can be very helpful in terms of getting your bearings.</p>
+      <div class="map-wrap"><img src="BRC_map.png" alt="Black Rock City 2025 map"></div>
+    </div></details>
+  </section>
+
+  <section id="art-cars">
+    <h2>Art Cars</h2>
+    <details><summary>Art Cars</summary><div class="content">
+      <p>All the placed camps you will see on the Playa are awarded space, and allotted tickets (for purchase) because Org believes they are providing something that will provide value/delight and amuse others, at no cost to other participants. Our camp is awarded space and access to tickets because we bring a passel (currently six) of art cars with us to the event, and we beautify the event and give people rides on them. So the goal is to both use them ourselves to have fun, but also share them with others by giving rides and just generally stoking them out.</p>
+      <details><summary>So you'd like to drive an Art Car?</summary><div class="content">
+        <p>As a member of Camp Fly, you may find yourself entrusted to drive an art car. It is important to point out that they are not insured, and we are on the hook for any repairs, etc. So please, be careful. Familiarize yourself with the DMV handbook for motor vehicles if you want to drive an art car, and some critical don'ts that always apply:</p>
+        <ul class="content-list">
+          <li>Don't drive the art cars under the influence</li>
+          <li>Don't run into anything, and if you do, offer to pay to fix whatever broke</li>
+          <li>Don't let the gas run out- know how to check the gas and fill it</li>
+          <li>Don't let the batteries die- know how to check this and make sure lights are on at night so no one runs into the dark car- ebikes or other cars- the cars need to stay lit at all times when out in the city whether moving or not</li>
+          <li>Don't drive down esplanade, or the promenades- you can cross- but not drive down these- these are meant for pedestrians and bikers only</li>
+          <li>Be careful where you park, make sure you leave lots of space around in case the area fills up with bikes and other cars, so that you can leave</li>
+          <li>Do give rides generously and encourage people to ride and get pictures if they want them</li>
+          <li>Do talk to other camps and offer that we might want to help them host an event like a wedding or party at their art installation</li>
+        </ul>
+      </div></details>
+    </div></details>
+  </section>
+
+  <footer class="footer-preview">
+    <img src="logo/dragonfly-only.png" alt="">
+    <p style="margin:0;">Camp Fly @ Burning Man</p>
+  </footer>
+  </div>
+  </div>
+
+</body>
+</html>

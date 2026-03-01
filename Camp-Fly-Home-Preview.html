@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camp Fly — Home (Preview)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #0f0f0f;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    .bg-texture-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url("bg-texture.png");
+      background-repeat: repeat;
+      background-size: auto;
+      pointer-events: none;
+    }
+    .dragonfly-bg {
+      position: absolute;
+      top: 7.5rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .dragonfly-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: top center;
+      filter: invert(1);
+      opacity: 0.2;
+    }
+    .content-layer {
+      position: relative;
+      z-index: 1;
+    }
+    .banner {
+      position: relative;
+      width: 100%;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: #0f0f0f;
+      background-image: url("bg-texture.png");
+      background-repeat: repeat;
+      overflow: hidden;
+    }
+    .banner a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0 1.25rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .banner-words {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 50vw;
+      max-width: 480px;
+    }
+    .banner-words img {
+      width: 45%;
+      height: auto;
+      object-fit: contain;
+    }
+    .pdf-hint {
+      background: rgba(31,31,31,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+    }
+    .pdf-hint strong { color: #fff; }
+    .navbar {
+      background: rgba(15,15,15,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0.75rem 1rem;
+    }
+    .navbar-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .navbar-links { display: flex; gap: 1.5rem; }
+    .navbar-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; }
+    .navbar-links a:hover { color: #fff; text-decoration: underline; }
+    .hero {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      min-height: 280px;
+      max-height: 55vh;
+      overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0f0f0f 0%, rgba(15,15,15,0.7) 50%, transparent 100%);
+    }
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .hero-logo { max-width: 280px; width: 70%; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6)); }
+    .hero-tagline { margin-top: 1.25rem; max-width: 32rem; font-size: 1.125rem; color: rgba(255,255,255,0.9); text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+    .container { max-width: 896px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    .cta-box {
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      background: rgba(31,31,31,0.9);
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .cta-box h2 { font-size: 1.25rem; font-weight: 600; color: #fff; margin: 0 0 0.5rem; }
+    .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 1rem; font-size: 1rem; }
+    .cta-box a {
+      display: inline-block;
+      padding: 0.625rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f0f0f;
+      background: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-box a:hover { background: rgba(255,255,255,0.9); }
+    .section-heading { font-size: 1.25rem; font-weight: 600; color: #fff; margin: 0 0 1rem; }
+    .card-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2.5rem;
+    }
+    .card-grid a {
+      display: block;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      background: rgba(31,31,31,0.9);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s;
+    }
+    .card-grid a:hover { border-color: rgba(255,255,255,0.25); }
+    .card-grid h3 { font-size: 1rem; font-weight: 600; color: #fff; margin: 0 0 0.25rem; }
+    .card-grid p { font-size: 0.875rem; color: rgba(255,255,255,0.75); margin: 0; }
+    .slideshow-label { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .slideshow-label img { height: 28px; width: auto; opacity: 0.85; filter: invert(1); }
+    .slideshow-label span { font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); }
+    .slideshow {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(31,31,31,0.8);
+    }
+    .slideshow-inner { position: relative; width: 100%; aspect-ratio: 4 / 3; }
+    .slideshow-inner img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transition: opacity 0.5s ease;
+    }
+    .slideshow-inner img.active { opacity: 1; z-index: 1; }
+    .slideshow-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 40px; height: 40px; border: none; border-radius: 50%;
+      background: rgba(0,0,0,0.6); color: #fff; cursor: pointer; z-index: 2;
+      display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+    }
+    .slideshow-btn:hover { background: rgba(255,255,255,0.2); }
+    .slideshow-btn.prev { left: 8px; }
+    .slideshow-btn.next { right: 8px; }
+    .slideshow-dots {
+      position: absolute; bottom: 12px; left: 0; right: 0;
+      display: flex; justify-content: center; gap: 8px; z-index: 2;
+    }
+    .slideshow-dots button {
+      width: 8px; height: 8px; border: none; border-radius: 4px;
+      background: rgba(255,255,255,0.4); cursor: pointer; padding: 0;
+      transition: background 0.2s, width 0.2s;
+    }
+    .slideshow-dots button:hover { background: rgba(255,255,255,0.6); }
+    .slideshow-dots button.active { width: 24px; background: #fff; }
+    .slideshow-section { margin-top: 2.5rem; }
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(31,31,31,0.95);
+      padding: 1.25rem 1rem;
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .footer img { height: 28px; width: auto; opacity: 0.8; filter: invert(1); }
+    @media print {
+      .pdf-hint, .navbar, .banner, .dragonfly-bg { display: none; }
+      .hero { max-height: 40vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dragonfly-bg" aria-hidden="true"><img src="logo/dragonfly-bg.png" alt=""></div>
+  <div class="bg-texture-overlay" aria-hidden="true"></div>
+  <div class="content-layer">
+  <p class="pdf-hint"><strong>Preview:</strong> Double‑click this file to open it in your browser (or drag it into Safari/Chrome). To save as PDF: <strong>File → Print → Save as PDF</strong>.</p>
+
+  <header class="banner" role="banner">
+    <a href="Camp-Fly-Home-Preview.html" aria-label="Camp Fly home">
+      <span class="banner-words">
+        <img src="logo/banner-camp.png" alt="Camp">
+        <img src="logo/banner-fly.png" alt="Fly">
+      </span>
+    </a>
+  </header>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <nav class="navbar-links">
+        <a href="Camp-Fly-Home-Preview.html">Home</a>
+        <a href="Camp-Fly-Preview.html">Burgin Initiation</a>
+        <a href="Camp-Fly-Media-Preview.html">Media</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Welcome">
+    <div class="hero-bg">
+      <img src="photos/swarm at dusk.jpg" alt="">
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+  </section>
+
+  <div class="container">
+    <section class="cta-box">
+      <h2>New to Burning Man? Start here</h2>
+      <p>Our Burgin Initiation guide covers tickets, packing, camp culture, and how to stay safe and leave no trace.</p>
+      <a href="Camp-Fly-Preview.html">Start here (Burgin Initiation)</a>
+    </section>
+
+    <section class="slideshow-section" aria-label="Photo slideshow">
+      <div class="slideshow" role="region" aria-label="Photo slideshow">
+        <div class="slideshow-inner">
+          <img src="photos/6008-Big-car-in-front-v3-1kPx.JPG" alt="Camp Fly art car" data-index="0">
+          <img src="photos/Butterfly6139-960px.JPG" alt="Butterfly art car" data-index="1">
+          <img src="photos/Chris-6154-Butterfly-v3-B&amp;W-960px.JPG" alt="Butterfly B&amp;W" data-index="2">
+          <img src="photos/Dragonfly6126-960px.JPG" alt="Dragonfly art car" data-index="3">
+          <img src="photos/G_6008-Big-car-in-front-Mastr-v2-1kPix.JPG" alt="Art car on playa" data-index="4">
+          <img src="photos/G_6093-4LittleOnes-progress-on-v2.JPG" alt="Art cars progress" data-index="5">
+          <img src="photos/IMG_0464.jpg" alt="Camp Fly" data-index="6">
+          <img src="photos/IMG_2698.JPG" alt="Camp Fly" data-index="7">
+          <img src="photos/IMG_2699.JPG" alt="Camp Fly" data-index="8">
+          <img src="photos/IMG_2700.JPG" alt="Camp Fly" data-index="9">
+          <img src="photos/Odo Duo at night.jpeg" alt="Odo Duo at night" data-index="10">
+          <img src="photos/Odo Duo.jpeg" alt="Odo Duo" data-index="11">
+          <img src="photos/Odo duo photo 2.jpg" alt="Odo Duo" data-index="12">
+          <img src="photos/Proto photo 1.jpg" alt="Proto" data-index="13">
+          <img src="photos/Proto photo 2.jpg" alt="Proto" data-index="14">
+          <img src="photos/doug on car.JPG" alt="Camp Fly" data-index="15">
+          <img src="photos/proto photo 3.jpeg" alt="Proto" data-index="16">
+          <img src="photos/swarm at dusk.jpg" alt="Art cars at dusk" data-index="17">
+          <img src="photos/swarm drone at dmv line.JPG" alt="Swarm drone" data-index="18">
+          <img src="photos/swarm drone pic.JPG" alt="Swarm drone" data-index="19">
+        </div>
+        <button type="button" class="slideshow-btn prev" aria-label="Previous image">‹</button>
+        <button type="button" class="slideshow-btn next" aria-label="Next image">›</button>
+        <div class="slideshow-dots" role="tablist" aria-label="Slide index"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function() {
+      var inner = document.querySelector('.slideshow-inner');
+      var imgs = inner ? inner.querySelectorAll('img') : [];
+      var dotsEl = document.querySelector('.slideshow-dots');
+      var n = imgs.length;
+      var index = 0;
+      var timer = null;
+      var interval = 5000;
+      function goTo(i) {
+        index = ((i % n) + n) % n;
+        imgs.forEach(function(img, j) { img.classList.toggle('active', j === index); });
+        if (dotsEl) dotsEl.querySelectorAll('button').forEach(function(btn, j) { btn.classList.toggle('active', j === index); });
+      }
+      function startTimer() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(function() { goTo(index + 1); }, interval);
+      }
+      if (n > 0 && dotsEl) {
+        imgs.forEach(function(img, i) { img.classList.toggle('active', i === 0); });
+        for (var i = 0; i < n; i++) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.role = 'tab';
+          btn.setAttribute('aria-label', 'Go to image ' + (i + 1));
+          btn.classList.toggle('active', i === 0);
+          (function(j) { btn.addEventListener('click', function() { goTo(j); startTimer(); }); })(i);
+          dotsEl.appendChild(btn);
+        }
+        var prevBtn = document.querySelector('.slideshow .prev');
+        var nextBtn = document.querySelector('.slideshow .next');
+        if (prevBtn) prevBtn.addEventListener('click', function() { goTo(index - 1); startTimer(); });
+        if (nextBtn) nextBtn.addEventListener('click', function() { goTo(index + 1); startTimer(); });
+        startTimer();
+      }
+    })();
+  </script>
+
+  <footer class="footer">
+    <img src="logo/dragonfly-only.png" alt="">
+    <p style="margin:0;">Camp Fly @ Burning Man</p>
+  </footer>
+  </div>
+</body>
+</html>
