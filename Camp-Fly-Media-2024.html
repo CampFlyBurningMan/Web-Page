@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camp Fly — Media 2024</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: rgba(255,255,255,0.9); margin: 0; padding: 0; min-height: 100vh; position: relative; }
+    .bg-texture-overlay { position: absolute; inset: 0; z-index: 0; background-image: url("bg-texture.png"); background-repeat: repeat; pointer-events: none; }
+    .dragonfly-bg { position: absolute; top: 7.5rem; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; }
+    .dragonfly-bg img { width: 100%; height: 100%; object-fit: contain; object-position: top center; filter: invert(1); opacity: 0.2; }
+    .content-layer { position: relative; z-index: 1; }
+    .banner { position: relative; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f0f0f; background-image: url("bg-texture.png"); background-repeat: repeat; overflow: hidden; }
+    .banner a { display: flex; align-items: center; justify-content: center; padding: 0.75rem 0 1rem; text-decoration: none; color: inherit; }
+    .banner-words { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 50vw; max-width: 480px; }
+    .banner-words img { width: 45%; height: auto; object-fit: contain; }
+    .navbar { background: rgba(15,15,15,0.98); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; }
+    .navbar-inner { max-width: 896px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+    .navbar-links { display: flex; gap: 1.5rem; }
+    .navbar-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; }
+    .navbar-links a:hover { color: #fff; text-decoration: underline; }
+    .container { max-width: 896px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    .back-link { display: inline-block; margin-bottom: 1rem; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9375rem; }
+    .back-link:hover { color: #fff; text-decoration: underline; }
+    h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 0 0 1.5rem; text-align: center; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; list-style: none; padding: 0; margin: 0; }
+    .photo-grid li { margin: 0; }
+    .photo-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; display: block; background: rgba(31,31,31,0.8); }
+    .footer { border-top: 1px solid rgba(255,255,255,0.1); background: rgba(31,31,31,0.95); padding: 1.25rem 1rem; margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem; font-size: 0.875rem; color: rgba(255,255,255,0.7); }
+    .footer img { height: 28px; width: auto; opacity: 0.8; filter: invert(1); }
+  </style>
+</head>
+<body>
+  <div class="dragonfly-bg" aria-hidden="true"><img src="logo/dragonfly-bg.png" alt=""></div>
+  <div class="bg-texture-overlay" aria-hidden="true"></div>
+  <div class="content-layer">
+  <header class="banner" role="banner">
+    <a href="Camp-Fly-Home-Preview.html" aria-label="Camp Fly home">
+      <span class="banner-words">
+        <img src="logo/banner-camp.png" alt="Camp">
+        <img src="logo/banner-fly.png" alt="Fly">
+      </span>
+    </a>
+  </header>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <nav class="navbar-links">
+        <a href="Camp-Fly-Home-Preview.html">Home</a>
+        <a href="Camp-Fly-Preview.html">Burgin Initiation</a>
+        <a href="Camp-Fly-Media-Preview.html">Media</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <a href="Camp-Fly-Media-Preview.html" class="back-link">← Back to media</a>
+    <h1>2024</h1>
+    <ul class="photo-grid" id="photo-grid"></ul>
+  </div>
+  <footer class="footer">
+    <img src="logo/dragonfly-only.png" alt="">
+    <p style="margin:0;">Camp Fly @ Burning Man</p>
+  </footer>
+  </div>
+  <script>
+    (function() {
+      var year = "2024";
+      var images = ["IMG_1295.JPG", "IMG_2698 2.JPG", "IMG_2700 2.JPG"];
+      var grid = document.getElementById("photo-grid");
+      var base = "photos/" + year + "/";
+      images.forEach(function(name) {
+        var li = document.createElement("li");
+        var img = document.createElement("img");
+        img.src = base + encodeURIComponent(name);
+        img.alt = "";
+        img.loading = "lazy";
+        li.appendChild(img);
+        grid.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

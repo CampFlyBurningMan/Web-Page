@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camp Fly — Media 2023</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: rgba(255,255,255,0.9); margin: 0; padding: 0; min-height: 100vh; position: relative; }
+    .bg-texture-overlay { position: absolute; inset: 0; z-index: 0; background-image: url("bg-texture.png"); background-repeat: repeat; pointer-events: none; }
+    .dragonfly-bg { position: absolute; top: 7.5rem; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; }
+    .dragonfly-bg img { width: 100%; height: 100%; object-fit: contain; object-position: top center; filter: invert(1); opacity: 0.2; }
+    .content-layer { position: relative; z-index: 1; }
+    .banner { position: relative; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f0f0f; background-image: url("bg-texture.png"); background-repeat: repeat; overflow: hidden; }
+    .banner a { display: flex; align-items: center; justify-content: center; padding: 0.75rem 0 1rem; text-decoration: none; color: inherit; }
+    .banner-words { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 50vw; max-width: 480px; }
+    .banner-words img { width: 45%; height: auto; object-fit: contain; }
+    .navbar { background: rgba(15,15,15,0.98); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; }
+    .navbar-inner { max-width: 896px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+    .navbar-links { display: flex; gap: 1.5rem; }
+    .navbar-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; }
+    .navbar-links a:hover { color: #fff; text-decoration: underline; }
+    .container { max-width: 896px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    .back-link { display: inline-block; margin-bottom: 1rem; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9375rem; }
+    .back-link:hover { color: #fff; text-decoration: underline; }
+    h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 0 0 1.5rem; text-align: center; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; list-style: none; padding: 0; margin: 0; }
+    .photo-grid li { margin: 0; }
+    .photo-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; display: block; background: rgba(31,31,31,0.8); }
+    .footer { border-top: 1px solid rgba(255,255,255,0.1); background: rgba(31,31,31,0.95); padding: 1.25rem 1rem; margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem; font-size: 0.875rem; color: rgba(255,255,255,0.7); }
+    .footer img { height: 28px; width: auto; opacity: 0.8; filter: invert(1); }
+  </style>
+</head>
+<body>
+  <div class="dragonfly-bg" aria-hidden="true"><img src="logo/dragonfly-bg.png" alt=""></div>
+  <div class="bg-texture-overlay" aria-hidden="true"></div>
+  <div class="content-layer">
+  <header class="banner" role="banner">
+    <a href="Camp-Fly-Home-Preview.html" aria-label="Camp Fly home">
+      <span class="banner-words">
+        <img src="logo/banner-camp.png" alt="Camp">
+        <img src="logo/banner-fly.png" alt="Fly">
+      </span>
+    </a>
+  </header>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <nav class="navbar-links">
+        <a href="Camp-Fly-Home-Preview.html">Home</a>
+        <a href="Camp-Fly-Preview.html">Burgin Initiation</a>
+        <a href="Camp-Fly-Media-Preview.html">Media</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <a href="Camp-Fly-Media-Preview.html" class="back-link">← Back to media</a>
+    <h1>2023</h1>
+    <ul class="photo-grid" id="photo-grid"></ul>
+  </div>
+  <footer class="footer">
+    <img src="logo/dragonfly-only.png" alt="">
+    <p style="margin:0;">Camp Fly @ Burning Man</p>
+  </footer>
+  </div>
+  <script>
+    (function() {
+      var year = "2023";
+      var images = ["IMG_5786.JPG", "IMG_5792.JPG", "IMG_5793.JPG", "IMG_5794.JPG", "IMG_5795.JPG", "IMG_5796.JPG", "IMG_5797.JPG", "IMG_5798.JPG", "IMG_5799.JPG", "IMG_5800.JPG", "IMG_5801.JPG", "IMG_5802.JPG", "IMG_5803.JPG", "IMG_5804.JPG", "IMG_5805.JPG", "IMG_5806.JPG", "IMG_5807.JPG", "IMG_5808.JPG", "IMG_5809.JPG", "IMG_5810.JPG", "IMG_5811.JPG", "IMG_5813.JPG", "IMG_5814.JPG", "IMG_5815.JPG", "IMG_5816.JPG", "IMG_5817.JPG", "IMG_5818.JPG", "IMG_5819.JPG", "IMG_5820.JPG", "IMG_5821.JPG", "IMG_5822.JPG", "IMG_5823.JPG", "IMG_5824.JPG", "IMG_5825.JPG", "IMG_5826.JPG", "IMG_5827.JPG", "IMG_5828.JPG", "IMG_5829.JPG", "IMG_5830.JPG", "IMG_5831.JPG", "IMG_5832.JPG", "IMG_5833.JPG", "IMG_5835.JPG", "IMG_5836.JPG", "IMG_5837.JPG", "IMG_5839.JPG", "IMG_5840.JPG", "IMG_5841.JPG", "IMG_5842.JPG", "IMG_5843.JPG", "IMG_5844.JPG", "IMG_5845.JPG", "IMG_5846.JPG", "IMG_5847.JPG", "IMG_5848.JPG", "IMG_5849.JPG", "IMG_5850.JPG", "IMG_5851.JPG", "IMG_5852.JPG", "IMG_5853.JPG", "IMG_5854.JPG", "IMG_5855.JPG", "IMG_5856.JPG", "IMG_5857.JPG", "IMG_5858.JPG", "IMG_5859.JPG", "IMG_5860.JPG", "IMG_5861.JPG", "IMG_5862.JPG", "IMG_5863.JPG", "IMG_5864.JPG", "IMG_5865.JPG", "IMG_5866.JPG", "IMG_5867.JPG", "IMG_5868.JPG", "IMG_5869.JPG", "IMG_5870.JPG", "IMG_5871.JPG", "IMG_5872.JPG", "IMG_5873.JPG", "IMG_5874.JPG", "IMG_5875.JPG", "IMG_5876.JPG", "IMG_5877.JPG", "IMG_5878.JPG", "IMG_5879.JPG", "IMG_5880.JPG", "IMG_5881.JPG", "IMG_5882.JPG", "IMG_5883.JPG", "IMG_5884.JPG", "IMG_5885.JPG", "IMG_5886.JPG", "IMG_5887.JPG", "IMG_5888.JPG", "IMG_5889.JPG", "IMG_5890.JPG", "IMG_5891.JPG", "IMG_5892.JPG", "IMG_5893.JPG", "IMG_5894.JPG", "IMG_5895.JPG", "IMG_5896.JPG", "IMG_5897.JPG", "IMG_5898.JPG"];
+      var grid = document.getElementById("photo-grid");
+      var base = "photos/" + year + "/";
+      images.forEach(function(name) {
+        var li = document.createElement("li");
+        var img = document.createElement("img");
+        img.src = base + encodeURIComponent(name);
+        img.alt = "";
+        img.loading = "lazy";
+        li.appendChild(img);
+        grid.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

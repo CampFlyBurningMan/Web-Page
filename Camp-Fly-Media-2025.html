@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camp Fly — Media 2025</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f0f; color: rgba(255,255,255,0.9); margin: 0; padding: 0; min-height: 100vh; position: relative; }
+    .bg-texture-overlay { position: absolute; inset: 0; z-index: 0; background-image: url("bg-texture.png"); background-repeat: repeat; pointer-events: none; }
+    .dragonfly-bg { position: absolute; top: 7.5rem; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; }
+    .dragonfly-bg img { width: 100%; height: 100%; object-fit: contain; object-position: top center; filter: invert(1); opacity: 0.2; }
+    .content-layer { position: relative; z-index: 1; }
+    .banner { position: relative; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f0f0f; background-image: url("bg-texture.png"); background-repeat: repeat; overflow: hidden; }
+    .banner a { display: flex; align-items: center; justify-content: center; padding: 0.75rem 0 1rem; text-decoration: none; color: inherit; }
+    .banner-words { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 50vw; max-width: 480px; }
+    .banner-words img { width: 45%; height: auto; object-fit: contain; }
+    .navbar { background: rgba(15,15,15,0.98); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; }
+    .navbar-inner { max-width: 896px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+    .navbar-links { display: flex; gap: 1.5rem; }
+    .navbar-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; }
+    .navbar-links a:hover { color: #fff; text-decoration: underline; }
+    .container { max-width: 896px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    .back-link { display: inline-block; margin-bottom: 1rem; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9375rem; }
+    .back-link:hover { color: #fff; text-decoration: underline; }
+    h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 0 0 1.5rem; text-align: center; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; list-style: none; padding: 0; margin: 0; }
+    .photo-grid li { margin: 0; }
+    .photo-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; display: block; background: rgba(31,31,31,0.8); }
+    .footer { border-top: 1px solid rgba(255,255,255,0.1); background: rgba(31,31,31,0.95); padding: 1.25rem 1rem; margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem; font-size: 0.875rem; color: rgba(255,255,255,0.7); }
+    .footer img { height: 28px; width: auto; opacity: 0.8; filter: invert(1); }
+  </style>
+</head>
+<body>
+  <div class="dragonfly-bg" aria-hidden="true"><img src="logo/dragonfly-bg.png" alt=""></div>
+  <div class="bg-texture-overlay" aria-hidden="true"></div>
+  <div class="content-layer">
+  <header class="banner" role="banner">
+    <a href="Camp-Fly-Home-Preview.html" aria-label="Camp Fly home">
+      <span class="banner-words">
+        <img src="logo/banner-camp.png" alt="Camp">
+        <img src="logo/banner-fly.png" alt="Fly">
+      </span>
+    </a>
+  </header>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <nav class="navbar-links">
+        <a href="Camp-Fly-Home-Preview.html">Home</a>
+        <a href="Camp-Fly-Preview.html">Burgin Initiation</a>
+        <a href="Camp-Fly-Media-Preview.html">Media</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <a href="Camp-Fly-Media-Preview.html" class="back-link">← Back to media</a>
+    <h1>2025</h1>
+    <ul class="photo-grid" id="photo-grid"></ul>
+  </div>
+  <footer class="footer">
+    <img src="logo/dragonfly-only.png" alt="">
+    <p style="margin:0;">Camp Fly @ Burning Man</p>
+  </footer>
+  </div>
+  <script>
+    (function() {
+      var year = "2025";
+      var images = ["05029B45-A2EF-4617-BFFC-70C5861D5F02.JPG", "33f4563aad1b55535bbbd8ace8a488c6.JPG", "50C84B1C-20BD-416F-931E-02D083B769D9.JPG", "633513F6-814D-4670-920A-F9DA72454DA0.JPG", "6F9B2BE6-AE16-4300-B255-229FB72A868A.JPG", "C49FCE0C-7637-49EE-8C1B-A081F2826542.JPG", "C977C8B0-48FF-41CA-8637-A853914A4A84.JPG", "IMG_1894.JPG", "IMG_1897.JPG", "IMG_1898.JPG", "IMG_1899.JPG", "IMG_1901.JPG", "IMG_1902.JPG", "IMG_1903.JPG", "IMG_1904.JPG", "IMG_1905.JPG", "IMG_1907.JPG", "IMG_1910.JPG", "IMG_1911.JPG", "IMG_1912.JPG", "IMG_1913.JPG", "IMG_1914.JPG", "IMG_1915.JPG", "IMG_1916.JPG", "IMG_1917.JPG", "IMG_1918.JPG", "IMG_1919.JPG", "IMG_1920.JPG", "IMG_1921.JPG", "IMG_1922.JPG", "IMG_1923.JPG", "IMG_1924.JPG", "IMG_1925.JPG", "IMG_1926.JPG", "IMG_1927.JPG", "IMG_1928.JPG", "IMG_1929.JPG", "IMG_1931.JPG", "IMG_1932.JPG", "IMG_1933.JPG", "IMG_1934.JPG", "IMG_1935.JPG", "IMG_1936.JPG", "IMG_1937.JPG", "IMG_1938.JPG", "IMG_1939.JPG", "IMG_1940.JPG", "IMG_1941.JPG", "IMG_1942.JPG", "IMG_1944.JPG", "IMG_1945.JPG", "IMG_1946.JPG", "IMG_1947.JPG", "IMG_1948.JPG", "IMG_1949.JPG", "IMG_1950.JPG", "IMG_1952.JPG", "IMG_1956.JPG", "IMG_1957.JPG", "IMG_1958.JPG", "IMG_1959.JPG", "IMG_1961.JPG", "IMG_1962.JPG", "IMG_1964.JPG", "IMG_1966.JPG", "IMG_1967.JPG", "IMG_1968.JPG", "IMG_1969.JPG", "IMG_1974.JPG", "IMG_1976.JPG", "IMG_1979.JPG", "IMG_1980.JPG", "IMG_1981.JPG", "IMG_1982.JPG", "IMG_1983.JPG", "IMG_1984.JPG", "IMG_1985.JPG", "IMG_1986.JPG", "IMG_1987.JPG", "IMG_1990.JPG", "IMG_1991.JPG", "IMG_1993.JPG", "IMG_1994.JPG", "IMG_1996.JPG", "IMG_2387.JPG", "IMG_2398.JPG", "IMG_2402.JPG", "IMG_2404.JPG", "IMG_2409.JPG", "IMG_2411.JPG", "IMG_2412.JPG", "IMG_2413.JPG", "IMG_2414.JPG", "IMG_2415.JPG", "IMG_2417.JPG", "IMG_2418.JPG", "IMG_2434.JPG", "IMG_2435.JPG", "IMG_2436.JPG", "IMG_2437.JPG", "IMG_2454.JPG", "IMG_2456.JPG", "IMG_2457.JPG", "IMG_2460.JPG", "IMG_2468.JPG", "IMG_2472.JPG", "IMG_2474.JPG", "IMG_2476.JPG", "IMG_2478.JPG", "IMG_2481.JPG", "IMG_2484.JPG", "IMG_5300.JPG", "IMG_5301.JPG", "IMG_5323.JPG", "IMG_5335.JPG", "IMG_5341.JPG", "IMG_5342.JPG", "IMG_5343.JPG", "IMG_5345.JPG", "IMG_5347.JPG", "IMG_5348.JPG", "IMG_5350.JPG", "IMG_5354.JPG", "IMG_5355.JPG", "IMG_5357.JPG", "IMG_5367.JPG", "IMG_5374.JPG", "IMG_5380.JPG", "IMG_5381.JPG", "IMG_5385.JPG", "IMG_5386.JPG", "IMG_5387.JPG", "IMG_5397.JPG", "IMG_5398.JPG", "IMG_5400.JPG", "IMG_5403.JPG", "IMG_5405.JPG", "IMG_5407.JPG", "IMG_5410.JPG", "IMG_5411.JPG", "IMG_5415.JPG", "IMG_5417.JPG", "IMG_5418.JPG", "IMG_5419.JPG", "IMG_5420.JPG", "IMG_5423.JPG", "IMG_5424.JPG", "IMG_5425.JPG", "IMG_5427.JPG", "IMG_5432.JPG", "IMG_5434.JPG", "IMG_5437.JPG", "IMG_5439.JPG", "IMG_5440.JPG", "IMG_5441.JPG", "IMG_5444.JPG", "IMG_5450.JPG", "IMG_5451.JPG", "IMG_5457.JPG", "IMG_5458.JPG", "IMG_5461.JPG", "IMG_5463.JPG", "IMG_5466.JPG", "IMG_5469.JPG", "IMG_8358.JPG", "IMG_8368.JPG", "IMG_8373.JPG", "IMG_8374.JPG", "IMG_8378.JPG", "IMG_8379.JPG", "IMG_8399.JPG", "IMG_8416.JPG", "IMG_8417.JPG", "IMG_8418.JPG", "IMG_8447.JPG", "IMG_8497.JPG", "IMG_8519.JPG", "IMG_8528.JPG", "IMG_8533.JPG", "IMG_8540.JPG", "IMG_8542.JPG", "IMG_8577.JPG", "IMG_8578.JPG", "IMG_8593.JPG", "IMG_8597.JPG", "IMG_8602.JPG", "IMG_8604.JPG", "IMG_8610.JPG", "IMG_8617.JPG", "IMG_8618.JPG", "IMG_8620.JPG", "IMG_8627.JPG", "IMG_8629.JPG"];
+      var grid = document.getElementById("photo-grid");
+      var base = "photos/" + year + "/";
+      images.forEach(function(name) {
+        var li = document.createElement("li");
+        var img = document.createElement("img");
+        img.src = base + encodeURIComponent(name);
+        img.alt = "";
+        img.loading = "lazy";
+        li.appendChild(img);
+        grid.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

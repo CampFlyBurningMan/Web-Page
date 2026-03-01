@@ -180,8 +180,10 @@
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.15);
       background: rgba(31,31,31,0.9);
-      cursor: default;
+      cursor: pointer;
       transition: border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
     }
     .album-card:hover { border-color: rgba(255,255,255,0.25); }
     .album-thumb {
@@ -260,35 +262,34 @@
     </div>
 
     <div id="media-content" class="media-content" aria-live="polite">
-      <p class="media-intro">Photo albums are loaded from the <strong>public/photos</strong> folder (e.g. 2025, 2024, 2023) when you run the full site. The cards below are for layout preview only.</p>
       <h2 class="section-heading">Albums by year</h2>
       <ul class="album-grid">
         <li>
-          <span class="album-card" title="Layout preview">
+          <a href="Camp-Fly-Media-2025.html" class="album-card" title="2025 photos">
             <div class="album-thumb" aria-hidden="true">📷</div>
             <div class="album-info">
               <h3>2025</h3>
-              <p>Photos from public/photos/2025</p>
+              <p>Photos from 2025</p>
             </div>
-          </span>
+          </a>
         </li>
         <li>
-          <span class="album-card" title="Layout preview">
+          <a href="Camp-Fly-Media-2024.html" class="album-card" title="2024 photos">
             <div class="album-thumb" aria-hidden="true">📷</div>
             <div class="album-info">
               <h3>2024</h3>
-              <p>Photos from public/photos/2024</p>
+              <p>Photos from 2024</p>
             </div>
-          </span>
+          </a>
         </li>
         <li>
-          <span class="album-card" title="Layout preview">
+          <a href="Camp-Fly-Media-2023.html" class="album-card" title="2023 photos">
             <div class="album-thumb" aria-hidden="true">📷</div>
             <div class="album-info">
               <h3>2023</h3>
-              <p>Photos from public/photos/2023</p>
+              <p>Photos from 2023</p>
             </div>
-          </span>
+          </a>
         </li>
       </ul>
     </div>
