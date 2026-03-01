@@ -25,8 +25,20 @@
     .back-link:hover { color: #fff; text-decoration: underline; }
     h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 0 0 1.5rem; text-align: center; }
     .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; list-style: none; padding: 0; margin: 0; }
-    .photo-grid li { margin: 0; }
+    .photo-grid li { margin: 0; cursor: pointer; }
     .photo-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; display: block; background: rgba(31,31,31,0.8); }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 3rem 4rem; }
+    .lightbox.open { display: flex; }
+    .lightbox-backdrop { position: absolute; inset: 0; cursor: pointer; }
+    .lightbox-content { position: relative; z-index: 1; max-width: 100%; max-height: 100%; display: flex; align-items: center; justify-content: center; }
+    .lightbox-content img { max-width: 100%; max-height: calc(100vh - 8rem); width: auto; height: auto; object-fit: contain; }
+    .lightbox-close { position: absolute; top: -2.5rem; right: 0; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9375rem; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; line-height: 1; display: flex; align-items: center; justify-content: center; padding: 0; }
+    .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-prev { left: -4rem; }
+    .lightbox-next { right: -4rem; }
+    .lightbox-counter { position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.8); font-size: 0.875rem; }
     .footer { border-top: 1px solid rgba(255,255,255,0.1); background: rgba(31,31,31,0.95); padding: 1.25rem 1rem; margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem; font-size: 0.875rem; color: rgba(255,255,255,0.7); }
     .footer img { height: 28px; width: auto; opacity: 0.8; filter: invert(1); }
   </style>
@@ -62,20 +74,86 @@
     <p style="margin:0;">Camp Fly @ Burning Man</p>
   </footer>
   </div>
+
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div class="lightbox-backdrop" id="lightbox-backdrop" aria-label="Close"></div>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-prev" id="lightbox-prev" aria-label="Previous photo">‹</button>
+      <img id="lightbox-img" src="" alt="">
+      <button type="button" class="lightbox-next" id="lightbox-next" aria-label="Next photo">›</button>
+      <button type="button" class="lightbox-close" id="lightbox-close">← Back to grid</button>
+      <span class="lightbox-counter" id="lightbox-counter"></span>
+    </div>
+  </div>
   <script>
     (function() {
       var year = "2023";
       var images = ["IMG_5786.JPG", "IMG_5792.JPG", "IMG_5793.JPG", "IMG_5794.JPG", "IMG_5795.JPG", "IMG_5796.JPG", "IMG_5797.JPG", "IMG_5798.JPG", "IMG_5799.JPG", "IMG_5800.JPG", "IMG_5801.JPG", "IMG_5802.JPG", "IMG_5803.JPG", "IMG_5804.JPG", "IMG_5805.JPG", "IMG_5806.JPG", "IMG_5807.JPG", "IMG_5808.JPG", "IMG_5809.JPG", "IMG_5810.JPG", "IMG_5811.JPG", "IMG_5813.JPG", "IMG_5814.JPG", "IMG_5815.JPG", "IMG_5816.JPG", "IMG_5817.JPG", "IMG_5818.JPG", "IMG_5819.JPG", "IMG_5820.JPG", "IMG_5821.JPG", "IMG_5822.JPG", "IMG_5823.JPG", "IMG_5824.JPG", "IMG_5825.JPG", "IMG_5826.JPG", "IMG_5827.JPG", "IMG_5828.JPG", "IMG_5829.JPG", "IMG_5830.JPG", "IMG_5831.JPG", "IMG_5832.JPG", "IMG_5833.JPG", "IMG_5835.JPG", "IMG_5836.JPG", "IMG_5837.JPG", "IMG_5839.JPG", "IMG_5840.JPG", "IMG_5841.JPG", "IMG_5842.JPG", "IMG_5843.JPG", "IMG_5844.JPG", "IMG_5845.JPG", "IMG_5846.JPG", "IMG_5847.JPG", "IMG_5848.JPG", "IMG_5849.JPG", "IMG_5850.JPG", "IMG_5851.JPG", "IMG_5852.JPG", "IMG_5853.JPG", "IMG_5854.JPG", "IMG_5855.JPG", "IMG_5856.JPG", "IMG_5857.JPG", "IMG_5858.JPG", "IMG_5859.JPG", "IMG_5860.JPG", "IMG_5861.JPG", "IMG_5862.JPG", "IMG_5863.JPG", "IMG_5864.JPG", "IMG_5865.JPG", "IMG_5866.JPG", "IMG_5867.JPG", "IMG_5868.JPG", "IMG_5869.JPG", "IMG_5870.JPG", "IMG_5871.JPG", "IMG_5872.JPG", "IMG_5873.JPG", "IMG_5874.JPG", "IMG_5875.JPG", "IMG_5876.JPG", "IMG_5877.JPG", "IMG_5878.JPG", "IMG_5879.JPG", "IMG_5880.JPG", "IMG_5881.JPG", "IMG_5882.JPG", "IMG_5883.JPG", "IMG_5884.JPG", "IMG_5885.JPG", "IMG_5886.JPG", "IMG_5887.JPG", "IMG_5888.JPG", "IMG_5889.JPG", "IMG_5890.JPG", "IMG_5891.JPG", "IMG_5892.JPG", "IMG_5893.JPG", "IMG_5894.JPG", "IMG_5895.JPG", "IMG_5896.JPG", "IMG_5897.JPG", "IMG_5898.JPG"];
       var grid = document.getElementById("photo-grid");
       var base = "photos/" + year + "/";
-      images.forEach(function(name) {
+      var lightbox = document.getElementById("lightbox");
+      var lightboxImg = document.getElementById("lightbox-img");
+      var lightboxCounter = document.getElementById("lightbox-counter");
+      var currentIndex = 0;
+
+      images.forEach(function(name, i) {
         var li = document.createElement("li");
         var img = document.createElement("img");
         img.src = base + encodeURIComponent(name);
         img.alt = "";
         img.loading = "lazy";
         li.appendChild(img);
+        li.setAttribute("data-index", i);
         grid.appendChild(li);
+      });
+
+      function showLightbox(index) {
+        currentIndex = index;
+        updateLightboxImage();
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+        document.getElementById("lightbox-prev").focus();
+      }
+
+      function hideLightbox() {
+        lightbox.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function updateLightboxImage() {
+        var name = images[currentIndex];
+        lightboxImg.src = base + encodeURIComponent(name);
+        lightboxCounter.textContent = (currentIndex + 1) + " / " + images.length;
+      }
+
+      function goPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateLightboxImage();
+      }
+
+      function goNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateLightboxImage();
+      }
+
+      grid.addEventListener("click", function(e) {
+        var li = e.target.closest("li[data-index]");
+        if (li) {
+          e.preventDefault();
+          showLightbox(parseInt(li.getAttribute("data-index"), 10));
+        }
+      });
+
+      document.getElementById("lightbox-backdrop").addEventListener("click", hideLightbox);
+      document.getElementById("lightbox-close").addEventListener("click", hideLightbox);
+      document.getElementById("lightbox-prev").addEventListener("click", function(e) { e.stopPropagation(); goPrev(); });
+      document.getElementById("lightbox-next").addEventListener("click", function(e) { e.stopPropagation(); goNext(); });
+
+      document.addEventListener("keydown", function(e) {
+        if (!lightbox.classList.contains("open")) return;
+        if (e.key === "Escape") hideLightbox();
+        if (e.key === "ArrowLeft") goPrev();
+        if (e.key === "ArrowRight") goNext();
       });
     })();
   </script>

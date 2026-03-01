@@ -194,6 +194,21 @@
       justify-content: center;
       font-size: 2.5rem;
       color: rgba(255,255,255,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .album-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .album-thumb img.active {
+      opacity: 1;
+      z-index: 1;
     }
     .album-info { padding: 1rem; }
     .album-info h3 { font-size: 1rem; font-weight: 600; color: #fff; margin: 0 0 0.25rem; }
@@ -266,7 +281,7 @@
       <ul class="album-grid">
         <li>
           <a href="Camp-Fly-Media-2025.html" class="album-card" title="2025 photos">
-            <div class="album-thumb" aria-hidden="true">📷</div>
+            <div class="album-thumb" aria-hidden="true" data-year="2025" data-images='["05029B45-A2EF-4617-BFFC-70C5861D5F02.JPG","33f4563aad1b55535bbbd8ace8a488c6.JPG","50C84B1C-20BD-416F-931E-02D083B769D9.JPG","633513F6-814D-4670-920A-F9DA72454DA0.JPG","6F9B2BE6-AE16-4300-B255-229FB72A868A.JPG","C49FCE0C-7637-49EE-8C1B-A081F2826542.JPG","C977C8B0-48FF-41CA-8637-A853914A4A84.JPG","IMG_1894.JPG","IMG_1897.JPG","IMG_1898.JPG","IMG_1899.JPG","IMG_1901.JPG","IMG_1902.JPG","IMG_1903.JPG","IMG_1904.JPG"]'><img src="" alt=""></div>
             <div class="album-info">
               <h3>2025</h3>
               <p>Photos from 2025</p>
@@ -275,7 +290,7 @@
         </li>
         <li>
           <a href="Camp-Fly-Media-2024.html" class="album-card" title="2024 photos">
-            <div class="album-thumb" aria-hidden="true">📷</div>
+            <div class="album-thumb" aria-hidden="true" data-year="2024" data-images='["IMG_1295.JPG","IMG_2434.JPG","IMG_2445.JPG","IMG_2448.JPG","IMG_2452.JPG","IMG_2460.JPG","IMG_2462.JPG","IMG_2465.JPG","IMG_2466.JPG","IMG_2469.JPG","IMG_2473.JPG","IMG_2476.JPG","IMG_2477.JPG","IMG_2480.JPG","IMG_2481.JPG"]'><img src="" alt=""></div>
             <div class="album-info">
               <h3>2024</h3>
               <p>Photos from 2024</p>
@@ -284,7 +299,7 @@
         </li>
         <li>
           <a href="Camp-Fly-Media-2023.html" class="album-card" title="2023 photos">
-            <div class="album-thumb" aria-hidden="true">📷</div>
+            <div class="album-thumb" aria-hidden="true" data-year="2023" data-images='["IMG_5786.JPG","IMG_5792.JPG","IMG_5793.JPG","IMG_5794.JPG","IMG_5795.JPG","IMG_5796.JPG","IMG_5797.JPG","IMG_5798.JPG","IMG_5799.JPG","IMG_5800.JPG","IMG_5801.JPG","IMG_5802.JPG","IMG_5803.JPG","IMG_5804.JPG","IMG_5805.JPG"]'><img src="" alt=""></div>
             <div class="album-info">
               <h3>2023</h3>
               <p>Photos from 2023</p>
@@ -314,10 +329,35 @@
       function showMedia() {
         loginView.style.display = 'none';
         mediaContent.classList.add('visible');
+        startSlideshows();
       }
 
       if (sessionStorage.getItem('mediaUnlocked') === '1') {
         showMedia();
+      }
+
+      function startSlideshows() {
+        var thumbs = document.querySelectorAll('.album-thumb[data-year][data-images]');
+        thumbs.forEach(function(thumb) {
+          var year = thumb.getAttribute('data-year');
+          var images = [];
+          try { images = JSON.parse(thumb.getAttribute('data-images') || '[]'); } catch (e) {}
+          if (!images.length) return;
+          var img = thumb.querySelector('img');
+          if (!img) return;
+          var base = 'photos/' + year + '/';
+          var index = 0;
+          function show() {
+            img.classList.remove('active');
+            img.onload = function() {
+              img.classList.add('active');
+            };
+            img.src = base + encodeURIComponent(images[index]);
+            index = (index + 1) % images.length;
+          }
+          show();
+          setInterval(show, 2500);
+        });
       }
 
       if (showCheckbox && input) {
