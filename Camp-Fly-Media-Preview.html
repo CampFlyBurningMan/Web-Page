@@ -311,6 +311,15 @@
       var input = document.getElementById('media-password');
       var showCheckbox = document.getElementById('show-password');
 
+      function showMedia() {
+        loginView.style.display = 'none';
+        mediaContent.classList.add('visible');
+      }
+
+      if (sessionStorage.getItem('mediaUnlocked') === '1') {
+        showMedia();
+      }
+
       if (showCheckbox && input) {
         showCheckbox.addEventListener('change', function() {
           input.type = this.checked ? 'text' : 'password';
@@ -323,8 +332,8 @@
         errorEl.textContent = '';
         var value = (input && input.value) ? input.value.trim() : '';
         if (value === PASSWORD) {
-          loginView.style.display = 'none';
-          mediaContent.classList.add('visible');
+          sessionStorage.setItem('mediaUnlocked', '1');
+          showMedia();
         } else {
           errorEl.textContent = 'Incorrect password. Try again.';
           errorEl.style.display = 'block';
